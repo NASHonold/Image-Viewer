@@ -1,3 +1,15 @@
+'''
+Title: Image Viewer
+This: imageViewer.py
+Author: Nash Honold
+Date: 02/03/2021
+Purpose: A small project that utilizes a GUI that allows the user to input a 
+path and if any JPEG or png files are present, will allow the user to cycle 
+through and view the images. 
+'''
+
+
+
 import os
 from os import path
 from tkinter import *
