@@ -28,7 +28,7 @@ window_size = str(window_width) + 'x' +str(window_heigth) +'+350+50'
 bottom_button_row = 4
 image_row = 3
 
-path_entry = Entry(root, width = int(window_width/8.5), borderwidth=5)
+path_entry = Entry(root, width = int(window_width/8.5), borderwidth=5, show='Copy your complete path here for image folder...')
 path_entry.grid(row=0, column=0, columnspan=3)
 
 

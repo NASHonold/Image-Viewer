@@ -1,0 +1,32 @@
+from tkinter import *
+from PIL import ImageTk, Image
+
+root = Tk()
+root.title('Image Viewer')
+root.iconbitmap('C:/Users/nasho/OneDrive/Desktop/Python Projects/ICO files/crapnh.ico')
+
+my_img = ImageTk.PhotoImage(Image.open('nopathselected.jpg'))
+my_label = Label(image = my_img)
+my_label.pack()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+button_quit = Button(root, text = 'Exit Program', command = root.quit)
+button_quit.pack()
+
+root.mainloop()
