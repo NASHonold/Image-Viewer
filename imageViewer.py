@@ -28,7 +28,7 @@ window_size = str(window_width) + 'x' +str(window_heigth) +'+350+50'
 bottom_button_row = 4
 image_row = 3
 
-path_entry = Entry(root, width = int(window_width/8.5), borderwidth=5, show='Copy your complete path here for image folder...')
+path_entry = Entry(root, width = int(window_width/8.5), borderwidth=5)
 path_entry.grid(row=0, column=0, columnspan=3)
 
 
@@ -50,8 +50,12 @@ def moveForward():
 
     if image_index == image_total -1:
         image_index = 0
+        
     else:
         image_index += 1
+
+    status = Label(root, text='Image {} of {}'.format(image_index + 1, image_total),bd=1, relief= SUNKEN, anchor=E)
+    status.grid(row = 5, column=0, columnspan=3, sticky= W + E)    
     my_label = Label(image = image_list[image_index])
     my_label.grid(row=image_row,column=0, columnspan=3)
 
@@ -71,6 +75,8 @@ def moveBack():
         image_index = image_total -1
     else:
         image_index -= 1
+    status = Label(root, text='Image {} of {}'.format(image_index + 1, image_total),bd=1, relief= SUNKEN, anchor=E)
+    status.grid(row = 5, column=0, columnspan=3, sticky= W + E)   
     my_label = Label(image = image_list[image_index])
     my_label.grid(row=image_row,column=0, columnspan=3)
 
@@ -112,7 +118,7 @@ def createImageList(dir):
     if len(i_list) != 0:
         for i in i_list:
             this_image = Image.open(i)
-            this_image = resizeimage.resize_contain(this_image, [window_width-5, window_heigth-100])
+            this_image = resizeimage.resize_contain(this_image, [window_width-5, window_heigth-112])
             print(len(this_image.size))
             new_list.append(ImageTk.PhotoImage(this_image))
     print(new_list)
@@ -141,9 +147,11 @@ def pathClick():
     path_entry.delete(0, END)
     
     image_index = 0
+
     image_list =[]
     image_list = createImageList(Folder_Path)
     image_total = len(image_list)
+
     if image_total != 0:
         root.geometry(window_size)
         
@@ -156,9 +164,12 @@ def pathClick():
         button_back = Button(root, text = 'Previous', command =moveBack, state=ACTIVE)
         button_back.grid(row=bottom_button_row, column= 0)
 
+        status = Label(root, text='Image {} of {}'.format(image_index + 1, image_total),bd=1, relief= SUNKEN, anchor=E)
+        status.grid(row = 5, column=0, columnspan=3, sticky= W + E)
+
     else:
         root.geometry("858x200" + "+500+50")
-        else_label = Label(text='That path is not readable\nTry again...')
+        else_label = Label(text='That path is not valid\nTry again...')
         else_label.grid(row=image_row, column=0, columnspan=3,)
 
         button_next = Button(root, text = 'Next', command =moveForward, state=DISABLED)
@@ -167,11 +178,9 @@ def pathClick():
         button_back = Button(root, text = 'Previous', command =moveBack, state=DISABLED)
         button_back.grid(row=bottom_button_row, column= 0)
 
+        status = Label(root, text='Image {} of {}'.format(image_index, image_total),bd=1, relief= SUNKEN, anchor=E)
+        status.grid(row = 5, column=0, columnspan=3, sticky= W + E)
         
-'''
-Setting global variables and creating the intial image list 
-'''
-
 
 '''
 ===========================================================
@@ -185,7 +194,7 @@ image_list = []
 image_total = len(image_list)
 
 #setting the window size to fit with initial setup
-root.geometry('858x360' + '+500+50')
+root.geometry('858x380' + '+500+50')
 
 #setting up all button widgets for the window
 button_set_path = Button(root,width=int(window_width/15),borderwidth=3, text='Set path from Input above', command=pathClick)
@@ -195,10 +204,15 @@ button_quit = Button(root, text = 'Exit Program', command = root.quit)
 button_quit.grid(row=bottom_button_row, column=2)
 
 button_next = Button(root, text = 'Next', command =moveForward, state=DISABLED)
-button_next.grid(row=bottom_button_row, column= 1)
+button_next.grid(row=bottom_button_row, column= 1, pady= 5)
 
 button_back = Button(root, text = 'Previous', command =moveBack, state=DISABLED)
 button_back.grid(row=bottom_button_row, column= 0)
+
+status = Label(root, text='Image {} of {}'.format(image_index, image_total),bd=1, relief= SUNKEN, anchor=E)
+status.grid(row = 5, column=0, columnspan=3, sticky= W + E)
+
+
 
 #setting the default image for startup
 this_image = ImageTk.PhotoImage(Image.open('nopathselected.jpg'))
